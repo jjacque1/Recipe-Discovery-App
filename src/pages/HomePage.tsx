@@ -4,7 +4,6 @@ import useFetch from "../hooks/useFetch";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 
-// This is the shape of the API response for categories.
 type Category = {
   idCategory: string;
   strCategory: string;

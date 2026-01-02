@@ -17,7 +17,6 @@ type MealsByCategoryResponse = {
 export default function CategoryPage() {
   const { categoryName } = useParams();
 
-  // Always call the hook (no conditional hook calls)
   const url = categoryName ? getMealsByCategoryUrl(categoryName) : null;
   const { data, loading, error } = useFetch<MealsByCategoryResponse>(url);
 
