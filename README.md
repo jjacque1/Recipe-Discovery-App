@@ -8,6 +8,8 @@ Recipe Discovery App
 
 # Link
 
+https://recipe-discovery-app-pi.vercel.app/
+
 # Description
 
 The Recipe Discovery App is a React + TypeScript application that allows users to explore recipes using data from TheMealDB API. Users can browse recipe categories, view meals within a category, search for recipes by name, view detailed recipe information, and save their favorite recipes for later.
@@ -65,7 +67,6 @@ Another key decision was storing only recipe IDs in the Favorites context and fe
 
 # Acknowledgements
 
-TheMealDB API 
+TheMealDB API
 
 https://www.themealdb.com/api.php
-
