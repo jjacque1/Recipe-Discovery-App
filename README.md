@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Project Title
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Recipe Discovery App
 
-Currently, two official plugins are available:
+# My Solution ScreenShot
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![alt text](recipeApp.png)
 
-## React Compiler
+# Link
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+# Description
 
-## Expanding the ESLint configuration
+The Recipe Discovery App is a React + TypeScript application that allows users to explore recipes using data from TheMealDB API. Users can browse recipe categories, view meals within a category, search for recipes by name, view detailed recipe information, and save their favorite recipes for later.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The app focuses on clean structure, beginner-friendly code, reusable components, and proper state management using React hooks and context.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Browse recipe categories
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+View meals by category
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Search for recipes by name
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+View detailed recipe information:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Image
+
+Category & origin
+
+Ingredients
+
+Instructions
+
+Add / remove favorites
+
+Favorites persist using localStorage
+
+Client-side routing with React Router
+
+# Tech Stack
+
+React
+
+TypeScript
+
+Vite
+
+React Router
+
+TheMealDB API
+
+# Reflection
+
+Most Challenging Part
+
+The most challenging part of this project was handling React hook rules and TypeScript type safety at the same time.
+Specifically:
+
+Ensuring hooks like useFetch were never called conditionally. Safely working with route parameters (useParams) that can be undefined. Structuring the Favorites context so it worked correctly with Fast Refresh and ESLint rules. Solving these issues required understanding how React renders components and how TypeScript narrows types through control flow.
+
+One important design decision was to create a reusable useFetch custom hook instead of fetching data directly inside each component. I chose this approach because it avoided duplicating fetch, loading, and error logic across multiple pages. It kept page components focused on UI rendering, no data logic. it also make the code easier to read and debug and maintain.
+
+Another key decision was storing only recipe IDs in the Favorites context and fetching full recipe details when needed. This kept global state lightweight while still allowing full recipe information to be displayed.
+
+# Acknowledgements
+
+TheMealDB API 
+
+https://www.themealdb.com/api.php
+

@@ -47,7 +47,7 @@ export default function FavoritesPage() {
       {favoriteIds.length === 0 ? (
         <div>
           <p>No favorites yet. Go add some from a recipe page.</p>
-          <Link to="/">←Back to categories</Link>
+          <Link className="link" to="/">←Back to categories</Link>
         </div>
       ) : (
         <div
