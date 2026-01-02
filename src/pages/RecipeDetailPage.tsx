@@ -58,7 +58,7 @@ export default function RecipeDetailPage() {
 
   return (
     <div>
-      <Link to="/">Back to categories</Link>
+      <Link className="link" to="/">Back to categories</Link>
 
       <h1>{recipeData.strMeal}</h1>
 
