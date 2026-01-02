@@ -1,4 +1,3 @@
-// src/hooks/useFetch.ts
 import { useEffect, useState } from "react";
 
 type FetchState<T> = {
@@ -7,38 +6,34 @@ type FetchState<T> = {
   error: string | null;
 };
 
-export default function useFetch<T>(url: string) {
+export default function useFetch<T>(url: string | null) {
   const [state, setState] = useState<FetchState<T>>({
     data: null,
-    loading: true,
+    loading: false,
     error: null,
   });
 
   useEffect(() => {
-    if (!url) return;
+    if (!url) {
+      setState({ data: null, loading: false, error: null });
+      return;
+    }
 
-    let isMounted = true; // prevents state updates after unmount
+    let isMounted = true;
 
     async function fetchData() {
       setState({ data: null, loading: true, error: null });
 
       try {
-        const res = await fetch(url);
-
-        if (!res.ok) {
-          throw new Error(`Request failed: ${res.status}`);
-        }
+        const res = await fetch(url as string);
+        if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
         const json = (await res.json()) as T;
 
-        if (isMounted) {
-          setState({ data: json, loading: false, error: null });
-        }
+        if (isMounted) setState({ data: json, loading: false, error: null });
       } catch (err) {
         const message = err instanceof Error ? err.message : "Something went wrong";
-        if (isMounted) {
-          setState({ data: null, loading: false, error: message });
-        }
+        if (isMounted) setState({ data: null, loading: false, error: message });
       }
     }
 
@@ -49,5 +44,5 @@ export default function useFetch<T>(url: string) {
     };
   }, [url]);
 
-  return state; // { data, loading, error }
+  return state;// { data, loading, error }
 }
