@@ -17,9 +17,7 @@ export default function Navbar() {
   return (
     <nav style={styles.nav}>
       <div style={styles.left}>
-        <Link to="/" style={styles.logo}>
-          Recipe Discovery
-        </Link>
+        
 
         <Link to="/" style={styles.link}>Home</Link>
         <Link to="/favorites" style={styles.link}>Favorites</Link>
