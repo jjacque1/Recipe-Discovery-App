@@ -1,8 +1,9 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 import { getMealsByCategoryUrl } from "../api/mealdb";
+import RecipeCard from "../components/RecipeCard";
 
 type Meal = {
   idMeal: string;
@@ -26,42 +27,22 @@ export default function CategoryPage() {
   if (!data || !data.meals) return <p>No meals found.</p>;
 
   return (
-    <div>
-      <h1>{categoryName} Recipes</h1>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "12px",
-          marginTop: "12px",
-        }}
-      >
-        {data.meals.map((meal) => (
-          <Link
-            key={meal.idMeal}
-            to={`/recipe/${meal.idMeal}`}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "10px",
-              padding: "12px",
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <img
-              src={meal.strMealThumb}
-              alt={meal.strMeal}
-              style={{ width: "100%", borderRadius: "10px" }}
-            />
-            <h3 style={{ marginTop: "10px" }}>{meal.strMeal}</h3>
-          </Link>
-        ))}
-      </div>
-
-      <p style={{ marginTop: "16px" }}>
-        <Link to="/">← Back to categories</Link>
-      </p>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+        gap: "12px",
+        marginTop: "12px",
+      }}
+    >
+      {data.meals.map((meal) => (
+        <RecipeCard
+          key={meal.idMeal}
+          recipeId={meal.idMeal}
+          recipeName={meal.strMeal}
+          recipeImage={meal.strMealThumb}
+        />
+      ))}
     </div>
   );
 }
