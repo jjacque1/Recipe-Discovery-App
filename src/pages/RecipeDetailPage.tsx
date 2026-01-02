@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 import { getMealDetailsUrl } from "../api/mealdb";
 import { buildIngredientsList } from "../util/mealHelpers";
+import useFavorites from "../context/useFavorites";
 
 type Recipe = {
   strMeal: string;
@@ -14,15 +15,14 @@ type Recipe = {
 };
 
 type RecipeDetailsResponse = {
-  meals: Recipe[] | null;
+  meals: (Recipe & Record<string, string | null>)[] | null;
 };
 
 export default function RecipeDetailPage() {
   const { recipeId } = useParams();
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
-  const recipeDetailsUrl = recipeId
-    ? getMealDetailsUrl(recipeId)
-    : null;
+  const recipeDetailsUrl = recipeId ? getMealDetailsUrl(recipeId) : null;
 
   const {
     data: recipeResponse,
@@ -40,11 +40,35 @@ export default function RecipeDetailPage() {
   const recipeData = recipeResponse.meals[0];
   const ingredientsList = buildIngredientsList(recipeData);
 
+  
+
+  if (!recipeId) return <p>Missing recipe id.</p>;
+
+  const safeRecipeId = recipeId;
+
+  const isCurrentlyFavorite = isFavorite(recipeId);
+
+  function handleFavoriteClick() {
+    if (isCurrentlyFavorite) {
+      removeFavorite(safeRecipeId);
+    } else {
+      addFavorite(safeRecipeId);
+    }
+  }
+
   return (
     <div>
       <Link to="/">Back to categories</Link>
 
       <h1>{recipeData.strMeal}</h1>
+
+      <button
+        type="button"
+        onClick={handleFavoriteClick}
+        style={{ margin: "10px 0", padding: "8px 12px" }}
+      >
+        {isCurrentlyFavorite ? "Remove from Favorites" : "Add to Favorites"}
+      </button>
 
       <p>
         <strong>Category:</strong> {recipeData.strCategory} •{" "}
